@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<h2 th:text="'Liste des livres'">Les livres</h2>
+
+<h2 th:text="${books.getContent()}">test</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Isbn</th>
+        <th>Lien</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="book : ${books.getContent()}">
+
+        <td th:text="${book.getContent().getTitle()}">Bob</td>
+        <td th:text="${book.getContent().getIsbn()}">Marley</td>
+        <td th:text="${book.getLink('self')}">le lien</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
