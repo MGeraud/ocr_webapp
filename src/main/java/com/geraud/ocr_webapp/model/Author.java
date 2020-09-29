@@ -1,6 +1,5 @@
-package com.geraud.ocr_webapp.domain;
+package com.geraud.ocr_webapp.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

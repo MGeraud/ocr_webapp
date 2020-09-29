@@ -1,4 +1,4 @@
-package com.geraud.ocr_webapp.domain;
+package com.geraud.ocr_webapp.model;
 
 
 import lombok.Getter;

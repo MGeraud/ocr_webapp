@@ -28,11 +28,11 @@
         </div>
     </nav>
 
-    <img th:src="@{https://lh3.googleusercontent.com/oNEyIMP64gIErRB6O2_nNPg2PZ30Jw5QtDuMzYV-NGktd8yj52CRuoOHzWSIJKTBYw7WKG4edQh9KUEzVvj3oTb997V1SCIzc8QF_Ylaz4acqNkxm32b9gZ1ocMNi7qMoNACBBvPCiDU6KPl6U7nVsyKnOV9LdwkDpyl0BsIyMrgm-r0w0yRmOOPUiYQVfd6L2uMVYSO3jHC_B0hNn8Q31Z3dmdEk_MzN3q1sJ9enKmqnd5Nc9TvVS_qSOeVfQiCGdyCLeQEXP8YKlllkomODyjU9WdGAkNaAWn6rVHwB3ipq7akMy4ffi1V6VWlWXMuc-6NWqqxkHvNU1GbuJ5YkoioNkhr5UaqdNL97didG1Kst2WY_vlLa9GHTUg9sMLoc98LHOTuq4J2eik-AuBVS_Go4_QrNByWZ-sLhFd0JSRuSsoY3pylhJcSQjKdIbOdTu5APZe1TawD74oC-6szKqkpYqYk5-8osiJaoTHYIN54oM_NfdyUX4R_uQAtITpJveghi9k2cC7jEJA_g-vT1c6jeLfkPzSX9F61NpvRE5dyVgsWTthuTRdGFCxA0yQLa2m39tNTJc3kOPnsmYeaN1o4uaRxUPwluDPhvgn_jTla3iI2Dj1ZBKfok7g4-CIyzUr3j3Cuo2cN3k1wz1UuOfKxG3KHzY5GtcIXu50Mmt39W1pLNPc9uvDuwlkp=w1880-h323-no(authuser=1)}" class="img-fluid">
+    <img src="#" th:src="@{/resources/images/bandeau.png}" class="img-fluid">
 
-<h2 th:text="'Liste des livres'">Les livres</h2>
+<h2 th:text="'Les derniers livres acquis par nos bibiothèques'">Les livres</h2>
 
-<h2 th:text="${books.getContent()}">test</h2>
+
 <table class="table table-striped">
     <thead>
     <tr>
@@ -47,10 +47,32 @@
 
         <td th:text="${book.getContent().getTitle()}">Bob</td>
         <td th:text="${book.getContent().getIsbn()}">Marley</td>
-        <td th:text="${book.getLink('self')}">le lien</td>
+        <td ><a th:href="@{${book.getLink('self').get().href}}" th:text="${book.getLink('self').get().href}"></a></td>
     </tr>
     </tbody>
 </table>
+    <table class="table teble-striped">
+        <thead>
+        <tr>
+            <th>next via getLink</th>
+            <th>metadata</th>
+            <th>page</th>
+            <th>previous param</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${books.getNextLink().get().href}"></td>
+            <td th:text="${books.getMetadata().getTotalPages()}">Metadata</td>
+            <td th:text="${books.getMetadata().getNumber()}">Page</td>
+            <td th:text="${books.nextLink.get().getHref()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
 <!-- jquery, popper et bootstrap4.js pour bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

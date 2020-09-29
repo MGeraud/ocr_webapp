@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recherche de livre</title>
+</head>
+<body>
+    <form action="#" th:action="@{/foundBook}" th:object="${searchBookParameters}" method="post">
+        <select th:field="*{searchType}">
+            <option th:value="author" th:text="Auteur">Par auteur</option>
+            <option th:value="title" th:text="Titre">Par titre</option>
+            <option th:value="topic" th:text="Sujet">Par sujet</option>
+        </select>
+        <input type="text" th:field="*{searchInput}"/>
+        <input type="submit" value="Envoyer">
+    </form>
+
+
+
+</body>
+</html>

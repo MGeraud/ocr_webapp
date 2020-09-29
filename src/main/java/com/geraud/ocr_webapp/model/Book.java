@@ -1,4 +1,4 @@
-package com.geraud.ocr_webapp.domain;
+package com.geraud.ocr_webapp.model;
 
 
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class Book {
 
 
-    private Long id_book;
+    private Long idbook;
 
     private String isbn;
 
