@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragment/common :: head"> Head</div>
+</head>
+<body>
+<!-- Navbar et image bandeau -->
+<div th:replace="fragment/common :: header"> En tête </div>
+
+<!-- formulaire de recherche -->
+<div th:replace="fragment/searchForm"> Formulaire </div>
+
+<!-- Resultat de recherche -->
+<div th:if="${trouve} != null">
+    <div th:replace="fragment/foundBook">Résultats </div>
+</div>
+<div th:insert="fragment/common :: footer"> Pied de page</div>
+</body>
+</html>

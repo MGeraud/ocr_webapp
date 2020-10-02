@@ -3,18 +3,13 @@ package com.geraud.ocr_webapp.controllers;
 import com.geraud.ocr_webapp.model.Book;
 import com.geraud.ocr_webapp.utils.SearchBookParameters;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.hateoas.client.Traverson;
-import org.springframework.hateoas.server.core.TypeReferences;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 @Controller
 public class SearchBookController {
@@ -27,7 +22,7 @@ public class SearchBookController {
     public String searchForm(Model model) {
 
         model.addAttribute("searchBookParameters" , new SearchBookParameters());
-        return "searchForm";
+        return "searchBook";
     }
 
     @RequestMapping("/foundBook")
@@ -47,6 +42,6 @@ public class SearchBookController {
 
         model.addAttribute("entities" , foundentities);
         model.addAttribute("trouve" , foundBooks);
-        return "foundBook";
+        return "searchBook";
     }
 }
