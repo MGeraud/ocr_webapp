@@ -11,9 +11,12 @@
 <div th:replace="fragment/searchForm"> Formulaire </div>
 
 <!-- Resultat de recherche -->
-<div th:if="${trouve} != null">
+<div th:if="${entities} != null">
     <div th:replace="fragment/foundBook">Résultats </div>
+
+    <div th:insert="fragment/common :: footer"> Pied de page</div>
 </div>
-<div th:insert="fragment/common :: footer"> Pied de page</div>
+
 </body>
+
 </html>
