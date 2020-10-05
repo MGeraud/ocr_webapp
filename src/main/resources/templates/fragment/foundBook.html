@@ -9,26 +9,28 @@
 <p>Pagination métadata , nombres pages : <h1 th:text='${entities.getContent().page.totalPages}'>A été sélectionné  : </h1></p>
 <p>Pagination métadata , page actuelle : <h1 th:text='${entities.getContent().page.number} + 1'>A été sélectionné  : </h1>
 </p>
-<strong>next link :</strong> <p th:if="${entities.getContent().page.number} < ( ${entities.getContent().page.totalPages} - 1 ) " th:text="${entities.getContent()._links.next.href}">nnnnext</p><br/>
-<strong>previous :</strong><p th:if="${entities.getContent().page.number} > 0" th:text="${entities.getContent()._links.prev.href}">previous ????</p>
+<strong>next link :</strong> <p th:if="${entities.getContent().page.number} < ( ${entities.getContent().page.totalPages} - 1 ) " th:text="${entities.getLink('next').get().href}">nnnnext</p><br/>
+<strong>previous :</strong><p th:if="${entities.getContent().page.number} > 0" th:text="${entities.getLink('prev').get().href}">previous ????</p>
 <div th:if="${entities.getContent().page.number} < ( ${entities.getContent().page.totalPages} - 1 ) " >
     <form action="#" th:action="@{/refreshBook}"  >
 
 
-        <button  type="submit" th:name="refresh" th:value="${entities.getContent()._links.next.href}"> Page suivante</button>
+        <button  type="submit" th:name="refresh" th:value="${entities.getLink('next').get().href}"> Page suivante</button>
+    </form>
+
+</div>
+<div th:if="${entities.getContent().page.number} > 0 ">
+    <form action="#" th:action="@{/refreshBook}"  >
+
+
+        <button  type="submit" th:name="refresh" th:value="${entities.getLink('prev').get().href}"> Page précédente</button>
     </form>
 
 </div>
 <br/>
 
 <table class="table table-striped alert-primary">
-    <thead>
-    <tr>
-        <th>Titre</th>
-        <th>Isbn</th>
 
-    </tr>
-    </thead>
     <tbody>
 
     <tr th:each="book : ${entities.getContent()._embedded.bookList}">
@@ -38,7 +40,26 @@
     </tr>
     </tbody>
 </table>
+<div class="row justify-content-center">
+    <ul class="pagination ">
+        <li class="page-item ml-3" th:if="${entities.getContent().page.number} > 0 ">
+            <form action="#" th:action="@{/refreshBook}"  >
 
 
+                <button class="btn btn-info" type="submit" th:name="refresh" th:value="${entities.getLink('prev').get().href}"> Page précédente</button>
+            </form>
+        </li>
+        <li class="page-item mx-3 my-auto"  th:text="'Page ' + (${entities.getContent().page.number} + 1) + ' sur ' + ${entities.getContent().page.totalPages}"></li>
+        <li class="page-item mr-3" th:if="${entities.getContent().page.number} < ( ${entities.getContent().page.totalPages} - 1 ) " >
+            <form action="#" th:action="@{/refreshBook}"  >
+
+
+                <button class="btn btn-info"  type="submit" th:name="refresh" th:value="${entities.getLink('next').get().href}"> Page suivante</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+</div>
+<nav aria-label="pagination">
 </body>
 </html>

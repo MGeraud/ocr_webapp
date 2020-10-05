@@ -2,6 +2,7 @@ package com.geraud.ocr_webapp.controllers;
 
 import com.geraud.ocr_webapp.model.Book;
 import com.geraud.ocr_webapp.utils.SearchBookParameters;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 public class SearchBookController {
 
+    @Autowired
+    RestTemplate restTemplate;
 
     /**
      * Page de recherche de livres d'après un formulaire à 2 entrées
@@ -39,7 +42,7 @@ public class SearchBookController {
     @RequestMapping("/foundBook")
     public String foundBook(@ModelAttribute("searchBookParameters") SearchBookParameters searchBookParameters,
                             Model model){
-        RestTemplate restTemplate = new RestTemplate();
+
         //création de l'url à appeler à partir des critères de recherche récupérés via l'objet SearchBookParameters
         String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9090/books/" + searchBookParameters.getSearchType())
                     .queryParam("queryparam" , searchBookParameters.getSearchInput())
@@ -63,7 +66,7 @@ public class SearchBookController {
      */
     @RequestMapping("/refreshBook")
     public String refreshResult(@RequestParam(value = "refresh" ) String linkUrl, Model model  ) {
-        RestTemplate restTemplate = new RestTemplate();
+
 
         //Appel de l'API rest directement depuis le lien hypermédia récupéré et récupération sous forme d'EntityModel (objet de Spring Hateaos)
         EntityModel<Book> foundentities = restTemplate.getForObject(linkUrl , EntityModel.class);
