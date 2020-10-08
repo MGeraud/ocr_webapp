@@ -6,17 +6,18 @@
     <title>Recherche de livre</title>
 </head>
 <body>
-    <form action="#" th:action="@{/foundBook}" th:object="${searchBookParameters}" method="post">
-        <select th:field="*{searchType}">
+<div class="row justify-content-around mt-md-5 ">
+    <form class="form-group form-inline mx-5  " action="#" th:action="@{/foundBook}" th:object="${searchBookParameters}" method="post">
+        <label class="col-form-label mx-md-3 " th:text=" Catégorie"></label>
+        <select class="form-control mx-md-3 " th:field="*{searchType}">
             <option th:value="author" th:text="Auteur">Par auteur</option>
             <option th:value="title" th:text="Titre">Par titre</option>
             <option th:value="topic" th:text="Sujet">Par sujet</option>
         </select>
-        <input type="text" th:field="*{searchInput}"/>
-        <input type="submit" value="Envoyer">
+        <label class="col-form-label mx-md-3 " th:text="' Rechercher : '"></label>
+        <input class="form-control mx-md-3 " type="text" th:field="*{searchInput}"/>
+        <input class="btn btn-info mx-md-3 " type="submit" value="Envoyer">
     </form>
-
-
-
+</div>
 </body>
 </html>

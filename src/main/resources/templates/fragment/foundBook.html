@@ -6,40 +6,19 @@
     <title>Title</title>
 </head>
 <body>
-<p>Pagination métadata , nombres pages : <h1 th:text='${entities.getContent().page.totalPages}'>A été sélectionné  : </h1></p>
-<p>Pagination métadata , page actuelle : <h1 th:text='${entities.getContent().page.number} + 1'>A été sélectionné  : </h1>
-</p>
-<strong>next link :</strong> <p th:if="${entities.getContent().page.number} < ( ${entities.getContent().page.totalPages} - 1 ) " th:text="${entities.getLink('next').get().href}">nnnnext</p><br/>
-<strong>previous :</strong><p th:if="${entities.getContent().page.number} > 0" th:text="${entities.getLink('prev').get().href}">previous ????</p>
-<div th:if="${entities.getContent().page.number} < ( ${entities.getContent().page.totalPages} - 1 ) " >
-    <form action="#" th:action="@{/refreshBook}"  >
-
-
-        <button  type="submit" th:name="refresh" th:value="${entities.getLink('next').get().href}"> Page suivante</button>
-    </form>
-
-</div>
-<div th:if="${entities.getContent().page.number} > 0 ">
-    <form action="#" th:action="@{/refreshBook}"  >
-
-
-        <button  type="submit" th:name="refresh" th:value="${entities.getLink('prev').get().href}"> Page précédente</button>
-    </form>
-
-</div>
-<br/>
-
-<table class="table table-striped alert-primary">
+<div class="container container-fluid ">
+<table class="table table-striped alert-primary table-borderless">
 
     <tbody>
 
-    <tr th:each="book : ${entities.getContent()._embedded.bookList}">
+    <tr class="border border-dark border" th:each="book : ${entities.getContent()._embedded.bookList}">
 
         <td th:text="${book.title}">Bob</td>
-        <td th:text="${book.isbn}">Marley</td>
+        <td th:each="author : ${book.authors}" th:text="${author.firstname} + ' ' + ${author.lastname}">Marley</td>
     </tr>
     </tbody>
 </table>
+</div>
 <div class="row justify-content-center">
     <ul class="pagination ">
         <li class="page-item ml-3" th:if="${entities.getContent().page.number} > 0 ">
@@ -60,6 +39,5 @@
     </ul>
 </nav>
 </div>
-<nav aria-label="pagination">
 </body>
 </html>
