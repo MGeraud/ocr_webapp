@@ -3,9 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Résultats de recherche</title>
 </head>
 <body>
+<!-- Affichage des résultats de la recherche de livre-->
 <div class="container container-fluid ">
 <table class="table table-striped alert-primary table-borderless">
 
@@ -19,6 +20,7 @@
     </tbody>
 </table>
 </div>
+<!-- Gestion de la pagination avec les différents liens hypermédias récupérés -->
 <div class="row justify-content-center">
     <ul class="pagination ">
         <li class="page-item ml-3" th:if="${entities.getContent().page.number} > 0 ">

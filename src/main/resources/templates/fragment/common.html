@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- couches commune aux différentes pages : NavBar , image bandeau et pied de page -->
+<!-- Fragment pour le header , permet de récupérer bootstrap4-->
 <div th:fragment="head">
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Common layout</title>
     <!-- bootstrap4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </div>
 <body>
+<!-- Fragment pour les en tête-->
 <div th:fragment="header">
+    <!-- NavBar responsive via bootstrap 4 , affichage menu burger pour les liens en petit écran-->
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <span class="navbar-brand">Bibliothèques d'OCR</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,10 +31,10 @@
             </ul>
         </div>
     </nav>
-
+    <!-- image bandeau de présentation situé sous la navBar-->
     <img src="#" th:src="@{/resources/images/bandeau.png}" class="img-fluid">
 </div>
-
+<!-- Fragment pour les pieds de page comprenant aussi les scripts nécessaires à bootstrap 4-->
 <div th:fragment="footer">
     <p> Pied de page </p>
     <!-- jquery, popper et bootstrap4.js pour bootstrap -->

@@ -6,6 +6,8 @@
     <title>Recherche de livre</title>
 </head>
 <body>
+<!-- Formulaire de recherche comprenant 2 champs : un champ SELECT pour le type de recherche et un champ INPUT pour l'entrée à rechercher-->
+
 <div class="row justify-content-around mt-md-5 ">
     <form class="form-group form-inline mx-5  " action="#" th:action="@{/foundBook}" th:object="${searchBookParameters}" method="post">
         <label class="col-form-label mx-md-3 " th:text=" Catégorie"></label>
