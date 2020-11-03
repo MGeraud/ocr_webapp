@@ -1,6 +1,7 @@
 package com.geraud.ocr_webapp.controllers;
 
 import com.geraud.ocr_webapp.model.Book;
+import com.geraud.ocr_webapp.utils.Login;
 import com.geraud.ocr_webapp.utils.SearchBookParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -27,7 +28,7 @@ public class SearchBookController {
     public String searchForm(Model model) {
 
         model.addAttribute("searchBookParameters" , new SearchBookParameters());
-
+        model.addAttribute("identifiants", new Login());
         return "searchBook";
     }
 
@@ -52,7 +53,7 @@ public class SearchBookController {
 
 
         model.addAttribute("entities" , foundentities);
-
+        model.addAttribute("identifiants", new Login());
         return "searchBook";
     }
 
@@ -73,7 +74,7 @@ public class SearchBookController {
 
         model.addAttribute("searchBookParameters" , new SearchBookParameters());
         model.addAttribute("entities" , foundentities);
-
+        model.addAttribute("identifiants", new Login());
         return "searchBook";
     }
 }
