@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Récupération du head commun-->
+    <div th:replace="fragment/common :: head">head</div>
+    <title>Liste de mes prêts</title>
+</head>
+<body>
+<!-- Récupération du fragment en tête -->
+<div th:replace="fragment/common :: header"> En tête </div>
+
+<div class="container container-fluid">
+
+    <div th:if="${myLoans} != null">
+        <table class="table table-striped alert-primary">
+            <thead>
+            <tr>
+                <th>Date d'emprunt</th>
+                <th>Date de retour</th>
+                <th>Livre emprunté</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="loan : ${myLoans}">
+
+                <td th:text="${loan.getStartingDate()}">Bob</td>
+                <td  th:text="${loan.getBookBackDate()}">Livre non retourné</td>
+                <td th:text="${loan.getTitle()}">titre</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- Récupération du pied de page et des scripts -->
+<div th:replace="fragment/common :: footer "> Pied </div>
+</body>
+</html>

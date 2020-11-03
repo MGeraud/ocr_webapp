@@ -4,7 +4,6 @@
 <!-- Fragment pour le header , permet de récupérer bootstrap4-->
 <div th:fragment="head">
     <meta charset="UTF-8">
-    <title>Common layout</title>
     <!-- bootstrap4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </div>
@@ -26,7 +25,33 @@
                     <a class="nav-link" href="#">Catalogue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profil</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#formForLoans">
+                        Mes emprunts
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="formForLoans" tabindex="-1" role="dialog" aria-labelledby="Identifiants" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="Identifiants">Vos identifiants</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-group mx-5  " action="#" th:action="@{/myLoans}" th:object="${identifiants}" method="post">
+                                        <label class="col-form-label mx-md-3 " th:text=" Email"></label>
+                                        <input class="form-control mx-md-3 " type="text" th:field="*{email}"/>
+                                        <label class="col-form-label mx-md-3 " th:text="' Carte n° : '"></label>
+                                        <input class="form-control mx-md-3 " type="text" th:field="*{cardnumber}"/>
+                                        <input class="btn btn-info mx-md-3 " type="submit" value="Envoyer">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
