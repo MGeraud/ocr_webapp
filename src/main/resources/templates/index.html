@@ -18,37 +18,20 @@
     <tr>
         <th>Titre</th>
         <th>Isbn</th>
-        <th>Lien</th>
+        <th>description</th>
     </tr>
     </thead>
     <tbody>
 
-    <tr th:each="book : ${books.getContent()}">
+    <tr th:each="book : ${books.getContent()._embedded.bookList}">
 
-        <td th:text="${book.getContent().getTitle()}">Bob</td>
-        <td th:text="${book.getContent().getIsbn()}">Marley</td>
-        <td ><a th:href="@{${book.getLink('self').get().href}}" th:text="${book.getLink('self').get().href}"></a></td>
+        <td th:text="${book.title}">Bob</td>
+        <td th:text="${book.isbn}">Marley</td>
+        <td th:text="${book.description}">Dsc</td>
     </tr>
     </tbody>
 </table>
-    <table class="table teble-striped">
-        <thead>
-        <tr>
-            <th>next via getLink</th>
-            <th>metadata</th>
-            <th>page</th>
-            <th>previous param</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${books.getNextLink().get().href}"></td>
-            <td th:text="${books.getMetadata().getTotalPages()}">Metadata</td>
-            <td th:text="${books.getMetadata().getNumber()}">Page</td>
-            <td th:text="${books.nextLink.get().getHref()}"></td>
-        </tr>
-        </tbody>
-    </table>
+
 
 
 <!-- Récupération du pied de page et des scripts -->
