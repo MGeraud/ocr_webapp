@@ -42,11 +42,11 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="form-group mx-5  " action="#" th:action="@{/myLoans}" th:object="${identifiants}" method="post">
-                                        <label class="col-form-label mx-md-3 " th:text=" Email"></label>
-                                        <input class="form-control mx-md-3 " type="text" th:field="*{email}"/>
-                                        <label class="col-form-label mx-md-3 " th:text="' Carte n° : '"></label>
-                                        <input class="form-control mx-md-3 " type="text" th:field="*{cardnumber}"/>
-                                        <input class="btn btn-info mx-md-3 " type="submit" value="Envoyer">
+                                        <label class="col-form-label mx-md-3 my-1" th:text=" Email"></label>
+                                        <input class="form-control mx-md-3 my-1" type="text" th:field="*{email}"/>
+                                        <label class="col-form-label mx-md-3 my-1" th:text="' Carte n° : '"></label>
+                                        <input class="form-control mx-md-3 my-1" type="text" th:field="*{cardnumber}"/>
+                                        <input class="btn btn-info mx-md-3 my-2" type="submit" value="Envoyer">
                                     </form>
                                 </div>
                             </div>
