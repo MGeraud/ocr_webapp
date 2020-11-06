@@ -27,6 +27,7 @@
                 <td th:text="${loan.getStartingDate()}">Bob</td>
                 <td  th:text="${loan.getBookBackDate()}">Livre non retourné</td>
                 <td th:text="${loan.getTitle()}">titre</td>
+                <td th:if="${loan.getRefreshEndingCounter()== 0 && loan.getBookBackDate()== null}"><a href="#" th:href="@{'/loan/' + ${loan.getId()} + '/extend'}" > patch </a> </td>
             </tr>
             </tbody>
         </table>
