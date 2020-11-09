@@ -9,10 +9,10 @@
 </div>
 <body>
 <!-- Fragment pour les en tête-->
-<div th:fragment="header">
+<div class="container-fluid " th:fragment="header">
     <!-- NavBar responsive via bootstrap 4 , affichage menu burger pour les liens en petit écran-->
-    <nav class="navbar navbar-expand-md navbar-light bg-light float-md-right">
-        <span class="navbar-brand "><strong>Bibliothèques d'OCR</strong></span>
+    <nav class="navbar navbar-expand-md navbar-light  float-md-right">
+        <a class="navbar-brand" href="#" th:href="@{/index}"><strong>Bibliothèques d'OCR</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
