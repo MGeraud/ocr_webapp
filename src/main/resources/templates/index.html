@@ -10,29 +10,18 @@
 <div th:replace="fragment/common :: header"> En tête </div>
 
 <!-- Décoration de la page d'accueil par les derniers livres acquis par les bibliothèques -->
-<h2 th:text="'Les derniers livres acquis par nos bibiothèques'">Les livres</h2>
+<h2 class="text-center my-5"><strong th:text="'Les derniers livres acquis par nos bibiothèques'">Les livres</strong></h2>
 
 
-<table class="table table-striped alert-primary">
-    <thead>
-    <tr>
-        <th>Titre</th>
-        <th>Isbn</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="card-deck" >
+    <div class="card border-success my-2" th:each="newBook : ${books.getContent()._embedded.bookList}">
+        <img class="card-img-top" th:src="@{${newBook.image}}">
+        <div class="card-body">
+            <H3 class="card-title" th:text="${newBook.title}">Titre du livre</H3>
+        </div>
+    </div>
 
-    <tr th:each="book : ${books.getContent()._embedded.bookList}">
-
-        <td th:text="${book.title}">Bob</td>
-        <td th:text="${book.isbn}">Marley</td>
-        <td th:text="${book.description}">Dsc</td>
-    </tr>
-    </tbody>
-</table>
-
-
+</div>
 
 <!-- Récupération du pied de page et des scripts -->
 <div th:replace="fragment/common :: footer "> Pied </div>
