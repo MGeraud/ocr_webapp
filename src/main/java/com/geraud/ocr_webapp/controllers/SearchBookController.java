@@ -38,7 +38,7 @@ public class SearchBookController {
      * @param searchBookParameters Objet regroupant les 2 paramètres de recheche : le type de recherche (Auteur, titre, sujet)
      *                             et le champ de texte à entrer
      * @param model attribution des entités de Book récupérés via l'api REST bibliothèque
-     * @return
+     * @return première page des résultat de recherche de liste de livre en fonction des critères choisis
      */
     @RequestMapping("/foundBook")
     public String foundBook(@ModelAttribute("searchBookParameters") SearchBookParameters searchBookParameters,
@@ -63,7 +63,7 @@ public class SearchBookController {
      * ou précédente via les liens hypermédia générés par l'api REST
      * @param linkUrl : lien hypermédia généré par l'api rest
      * @param model : attribution des entités de Book récupérés via l'api REST bibliotheque
-     * @return
+     * @return page de recherche (suivante ou précédente) selon le bouton clické
      */
     @RequestMapping("/refreshBook")
     public String refreshResult(@RequestParam(value = "refresh" ) String linkUrl, Model model  ) {
@@ -76,5 +76,22 @@ public class SearchBookController {
         model.addAttribute("entities" , foundentities);
         model.addAttribute("identifiants", new Login());
         return "searchBook";
+    }
+
+    /**
+     * Affichage du livre sélectionné par son lien hateoas
+     * @param urlLink lien vers les détails du livres appellés sur l'api Rest ocr-loan-api
+     * @param model attribution des différents attributs récupérés pour envoi vers la page html
+     * @return page décrivant les détails du livre sélectionné
+     */
+    @RequestMapping("/book")
+    public String showBook(@RequestParam("urlLink") String urlLink,
+                           Model model) {
+
+        Book book = restTemplate.getForObject(urlLink, Book.class);
+        model.addAttribute("book" , book);
+        model.addAttribute("identifiants", new Login());
+
+        return "book";
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Récupération du head commun-->
+    <div th:replace="fragment/common :: head">head</div>
+    <title>Livre</title>
+</head>
+<body>
+<!-- Récupération du fragment en tête -->
+<div th:replace="fragment/common :: header"> En tête </div>
+
+<h1 th:text="${book.getTitle()}">titre</h1>
+
+<!-- Récupération du pied de page et des scripts -->
+<div th:replace="fragment/common :: footer "> Pied </div>
+</body>
+</html>

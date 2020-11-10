@@ -14,11 +14,15 @@
 
 
 <div class="card-deck" >
-    <div class="card border-success my-2" th:each="newBook : ${books.getContent()._embedded.bookList}">
+    <div class="card border-success my-2 " th:each="newBook : ${books.getContent()._embedded.bookList}">
         <img class="card-img-top" th:src="@{${newBook.image}}">
         <div class="card-body">
-            <H3 class="card-title" th:text="${newBook.title}">Titre du livre</H3>
+            <h3 class="card-title" th:text="${newBook.title}">Titre du livre</h3>
         </div>
+        <!-- Bouton de redirection vers les détails du livre avec plage étendue à toute la carte du livre -->
+        <form  action="#" th:action="@{/book}" >
+            <button class="btn btn-success stretched-link m-2 " type="submit" th:name="urlLink" th:value="${newBook._links.self.href}">Découvrir !</button>
+        </form>
     </div>
 
 </div>
