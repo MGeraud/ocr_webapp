@@ -1,6 +1,7 @@
 package com.geraud.ocr_webapp.controllers;
 
 import com.geraud.ocr_webapp.model.Book;
+import com.geraud.ocr_webapp.model.Stock;
 import com.geraud.ocr_webapp.utils.Login;
 import com.geraud.ocr_webapp.utils.SearchBookParameters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class SearchBookController {
@@ -87,8 +91,21 @@ public class SearchBookController {
     @RequestMapping("/book")
     public String showBook(@RequestParam("urlLink") String urlLink,
                            Model model) {
-
+        //récupération du livre et de ses détails
         Book book = restTemplate.getForObject(urlLink, Book.class);
+
+        //Map key = label du livre (identifiant unique de l'exemplaire) value = booléen (true = disponible, false=indisponible)
+        Map<String, String> available = new HashMap<>();
+        //Pour chaque label, appel de l'api rest des emprunts pour vérification si exemplaire en cours d'emprunt (donc non disponible)
+        for ( Stock stock:book.getStocks()
+             ) {
+            String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/loan/" + stock.getLabel())
+                    .toUriString();
+            String availability = restTemplate.getForObject(url, String.class);
+            available.put(stock.getLabel(), availability);
+
+        }
+        model.addAttribute("available" , available );
         model.addAttribute("book" , book);
         model.addAttribute("identifiants", new Login());
 
