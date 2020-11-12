@@ -14,7 +14,7 @@
 
             <h3 class="card-title col-8" th:text="${book.title}">Titre du livre</h3>
 
-            <h5 class="card-title col" th th:text="'Editions : ' + ${book.publisher.name}">Editeur</h5>
+            <h5 class="card-title col"  th:text="'Editions : ' + ${book.publisher.name}">Editeur</h5>
 
         </div>
         <div class="card-footer ">
@@ -28,7 +28,7 @@
         </div>
         <!-- Bouton de redirection vers les détails du livre avec plage étendue à toute la carte du livre -->
         <form  action="#" th:action="@{/book}" >
-        <button class="btn btn-success stretched-link m-2 " type="submit" th:name="urlLink" th:value="${book._links.self.href}">Voir détails</button>
+        <button class="btn btn-success stretched-link m-2 " type="submit" th:name="urlLink" th:value="${book._links.self.href}">Voir détails et disponibilités</button>
         </form>
     </div>
 </div>
