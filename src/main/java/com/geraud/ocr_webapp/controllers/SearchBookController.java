@@ -4,6 +4,7 @@ import com.geraud.ocr_webapp.model.Book;
 import com.geraud.ocr_webapp.model.Stock;
 import com.geraud.ocr_webapp.utils.Login;
 import com.geraud.ocr_webapp.utils.SearchBookParameters;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class SearchBookController {
 
     @Autowired
@@ -52,11 +54,14 @@ public class SearchBookController {
         String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9090/books/" + searchBookParameters.getSearchType())
                     .queryParam("queryparam" , searchBookParameters.getSearchInput())
                     .toUriString();
-        //Appel de l'API rest et récupération sous forme d'EntityModel (objet de Spring Hateaos)
-        EntityModel<Book> foundentities = restTemplate.getForObject(url , EntityModel.class);
-
-
-        model.addAttribute("entities" , foundentities);
+        try {
+            //Appel de l'API rest et récupération sous forme d'EntityModel (objet de Spring Hateaos)
+            EntityModel<Book> foundentities = restTemplate.getForObject(url, EntityModel.class);
+            model.addAttribute("entities", foundentities);
+        }catch (Exception e){
+            log.error("Erreur serveur : " + e.getMessage());
+            return "redirect:/errorPage";
+        }
         model.addAttribute("identifiants", new Login());
         return "searchBook";
     }
@@ -74,10 +79,15 @@ public class SearchBookController {
 
 
         //Appel de l'API rest directement depuis le lien hypermédia récupéré et récupération sous forme d'EntityModel (objet de Spring Hateaos)
-        EntityModel<Book> foundentities = restTemplate.getForObject(linkUrl , EntityModel.class);
+        try {
+            EntityModel<Book> foundentities = restTemplate.getForObject(linkUrl, EntityModel.class);
+            model.addAttribute("entities" , foundentities);
+        }catch (Exception e){
+            log.error("Erreur serveur : " + e.getMessage());
+            return "redirect:/errorPage";
+        }
 
         model.addAttribute("searchBookParameters" , new SearchBookParameters());
-        model.addAttribute("entities" , foundentities);
         model.addAttribute("identifiants", new Login());
         return "searchBook";
     }
@@ -101,8 +111,15 @@ public class SearchBookController {
              ) {
             String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/loan/" + stock.getLabel())
                     .toUriString();
-            String availability = restTemplate.getForObject(url, String.class);
-            available.put(stock.getLabel(), availability);
+            try {
+                String availability = restTemplate.getForObject(url, String.class);
+                available.put(stock.getLabel(), availability);
+            }catch (Exception e){
+                log.error("Erreur serveur : " + e.getMessage());
+                return "redirect:/errorPage";
+            }
+
+
 
         }
         model.addAttribute("available" , available );

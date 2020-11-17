@@ -2,6 +2,7 @@ package com.geraud.ocr_webapp.controllers;
 
 import com.geraud.ocr_webapp.model.Loan;
 import com.geraud.ocr_webapp.utils.Login;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
+@Slf4j
 public class LoanController {
 
     @Autowired
@@ -33,12 +35,16 @@ public class LoanController {
                 .queryParam("email" , login.getEmail())
                 .queryParam("cardnumber", login.getCardnumber())
                 .toUriString();
-        // appel l'API gérnt les emprunts puis récupération des livres emprunté sous forme de tableau
-        ResponseEntity<Loan[]> response = restTemplate.getForEntity(url,Loan[].class);
-        Loan[] myLoans = response.getBody();
+        try {
+            // appel l'API gérant les emprunts puis récupération des livres emprunté sous forme de tableau
+            ResponseEntity<Loan[]> response = restTemplate.getForEntity(url, Loan[].class);
+            Loan[] myLoans = response.getBody();
 
-        model.addAttribute("myLoans" , myLoans);
-
+            model.addAttribute("myLoans", myLoans);
+        }catch (Exception e){
+            log.error("Erreur serveur : " + e.getMessage());
+            return "redirect:/errorPage";
+        }
         return "listMyLoans";
     }
 
@@ -63,13 +69,18 @@ public class LoanController {
         //création de l'url à appeler à partir de l'Id de l'emprunt à modifier
         String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/loan/" + loan.getId())
                 .toUriString();
-        //envoi de la requête et récupération de l'emprunt modifié
-        Loan patchedLoan = restTemplate.patchForObject(url,loan , Loan.class);
-        //attribution des identifiants de l'emprunt modifié pour envoyer directement au @ModelAttribute de la méthode du controller de l'historique des emprunts
-        Login login = new Login();
-        login.setCardnumber(patchedLoan.getMember().getCardnumber());
-        login.setEmail(patchedLoan.getMember().getEmail());
-        redirectAttributes.addFlashAttribute("identifiants", login);
+        try {
+            //envoi de la requête et récupération de l'emprunt modifié
+            Loan patchedLoan = restTemplate.patchForObject(url, loan, Loan.class);
+            //attribution des identifiants de l'emprunt modifié pour envoyer directement au @ModelAttribute de la méthode du controller de l'historique des emprunts
+            Login login = new Login();
+            login.setCardnumber(patchedLoan.getMember().getCardnumber());
+            login.setEmail(patchedLoan.getMember().getEmail());
+            redirectAttributes.addFlashAttribute("identifiants", login);
+        }catch (Exception e){
+            log.error("Erreur serveur : " + e.getMessage());
+            return "redirect:/errorPage";
+        }
         //redirection vers l'historique des emprunts
        return "redirect:/myLoans";
     }
