@@ -4,6 +4,7 @@ import com.geraud.ocr_webapp.model.Loan;
 import com.geraud.ocr_webapp.utils.Login;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Slf4j
 public class LoanController {
 
+    @Value("${base.url.loan}")
+    private String loanUrl;
     @Autowired
     RestTemplate restTemplate;
 
@@ -31,7 +34,7 @@ public class LoanController {
                                      Model model){
 
         //création de l'url à appeler à partir des critères de recherche récupérés (email et carte membre)
-        String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/loan" )
+        String url = UriComponentsBuilder.fromHttpUrl(loanUrl)
                 .queryParam("email" , login.getEmail())
                 .queryParam("cardnumber", login.getCardnumber())
                 .toUriString();
@@ -67,7 +70,7 @@ public class LoanController {
         restTemplate.setRequestFactory(requestFactory);
 
         //création de l'url à appeler à partir de l'Id de l'emprunt à modifier
-        String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/loan/" + loan.getId())
+        String url = UriComponentsBuilder.fromHttpUrl(loanUrl + loan.getId())
                 .toUriString();
         try {
             //envoi de la requête et récupération de l'emprunt modifié

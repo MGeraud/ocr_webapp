@@ -6,6 +6,7 @@ import com.geraud.ocr_webapp.utils.Login;
 import com.geraud.ocr_webapp.utils.SearchBookParameters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,11 @@ import java.util.Map;
 @Controller
 @Slf4j
 public class SearchBookController {
+
+    @Value("${base.url.library}")
+    private String libraryUrl;
+    @Value("${base.url.loan}")
+    private String loanUrl;
 
     @Autowired
     RestTemplate restTemplate;
@@ -51,7 +57,7 @@ public class SearchBookController {
                             Model model){
 
         //création de l'url à appeler à partir des critères de recherche récupérés via l'objet SearchBookParameters
-        String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9090/books/" + searchBookParameters.getSearchType())
+        String url = UriComponentsBuilder.fromHttpUrl(libraryUrl + searchBookParameters.getSearchType())
                     .queryParam("queryparam" , searchBookParameters.getSearchInput())
                     .toUriString();
         try {
@@ -109,7 +115,7 @@ public class SearchBookController {
         //Pour chaque label, appel de l'api rest des emprunts pour vérification si exemplaire en cours d'emprunt (donc non disponible)
         for ( Stock stock:book.getStocks()
              ) {
-            String url = UriComponentsBuilder.fromHttpUrl("http://localhost:9092/loan/" + stock.getLabel())
+            String url = UriComponentsBuilder.fromHttpUrl(loanUrl + stock.getLabel())
                     .toUriString();
             try {
                 String availability = restTemplate.getForObject(url, String.class);
